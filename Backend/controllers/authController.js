@@ -5,7 +5,7 @@ const generateTokenAndSetCookie = require('../utils/generateToken')
 const signUp = async (req, res) => {
     try {
         const  { fullName, username, password, confirmPassword, gender } = req.body
-    
+        console.log({fullName, username, password, confirmPassword, gender})
         if (password !== confirmPassword) {
             return res.status(400).json({error: "Passwords do not match"})
         }
@@ -62,10 +62,10 @@ const loginUser = async (req, res) => {
         generateTokenAndSetCookie(user._id, res)
 
         res.status(200).json({
-            _id: newUser._id,
-            fullName: newUser.fullName,
-            username: newUser.username,
-            profilePic: newUser.profilePic
+            _id: user._id,
+            fullName: user.fullName,
+            username: user.username,
+            profilePic: user.profilePic
         })
     } catch (err) {
         console.log("Error in login controller", err.message)

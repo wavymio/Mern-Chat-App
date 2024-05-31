@@ -1,6 +1,7 @@
 const express = require('express')
 const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
+const cors = require('cors')
 const app = express()
 
 const authRoute = require('./routes/authRoutes')
@@ -13,6 +14,10 @@ dotenv.config()
 
 app.use(express.json())
 app.use(cookieParser())
+app.use(cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true
+}))
 
 app.get('/health', (req, res) => {
     res.status(200).send("I am healthy")

@@ -57,7 +57,7 @@ const sendMessage = async (req, res) => {
         // this will run bot promises at the same time so it'll take a sec
         await Promise.all([conversation.save(), newMessage.save()])
 
-        return res.status(201).json({ newMessage })
+        return res.status(201).json(newMessage)
 
     } catch (err) {
         console.log("Error in sendMessage controller", err.message)
