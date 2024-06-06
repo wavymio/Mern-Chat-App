@@ -2,7 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
-const app = express()
+const { app, server } = require('./socket/socket')
 
 const authRoute = require('./routes/authRoutes')
 const messageRoute = require('./routes/messageRoutes')
@@ -27,7 +27,7 @@ app.use('/api/auth', authRoute)
 app.use('/api/messages', messageRoute)
 app.use('/api/users', userRoute)
 
-app.listen(8080, () => {
+server.listen(8080, () => {
     connectToMongodb()
     console.log("App connected successfully")
 })

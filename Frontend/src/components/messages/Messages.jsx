@@ -2,10 +2,13 @@ import React from 'react'
 import Message from './Message'
 import useGetMessages from '../../hooks/useGetMessages'
 import MessageSkeleton from '../skeletons/MessageSkeleton'
+import useListenMessages from '../../hooks/useListenMessages'
 
 const Messages = () => {
     const {messages, loading} = useGetMessages()
-	console.log("new Messages: ", messages)
+	// console.log("new Messages: ", messages)
+	useListenMessages()
+
 	return (
         <div className='px-4 flex-1 overflow-auto'>
 			{!loading && messages.length > 0 &&

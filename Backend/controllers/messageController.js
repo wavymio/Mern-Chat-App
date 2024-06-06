@@ -1,5 +1,6 @@
 const Conversation = require("../models/conservation.model")
 const Message = require("../models/message.model")
+const { getReceiverSocketId, io } = require('../socket/socket')
 
 const getMessage = async (req, res) => {
     try {
@@ -56,6 +57,11 @@ const sendMessage = async (req, res) => {
 
         // this will run bot promises at the same time so it'll take a sec
         await Promise.all([conversation.save(), newMessage.save()])
+
+        const receiverSocketId = getReceiverSocketId(receiverId)
+        if (receiverSocketId) {
+            io.to(receiverSocketId).emit("newMessage", newMessage)
+        }
 
         return res.status(201).json(newMessage)
 
