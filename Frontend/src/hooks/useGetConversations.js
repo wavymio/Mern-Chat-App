@@ -6,8 +6,10 @@ const useGetConversations = () => {
     const [conversations, setConversations] = useState([])
 
     useEffect(() => {
+        console.log('useEffect triggered')
         const getConversations = async () => {
             setLoading(true)
+            console.log('Fetching conversations...')
 
             try {
                 const res = await fetch('http://localhost:8080/api/users', {
@@ -17,12 +19,14 @@ const useGetConversations = () => {
                 const data = await res.json()
 
                 if (data.error) {
+                    console.log("the error is from here")
                     throw new Error(data.error)
                 }
 
                 setConversations(data)
             } catch (err) {
                 toast.error(err.message)
+                console.log(err)
             } finally {
                 setLoading(false)
             }
