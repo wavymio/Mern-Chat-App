@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAuthContext } from "./AuthContext";
 import io from 'socket.io-client'
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'https://mern-chat-app-goez.onrender.com'
 
 const SocketContext = createContext()
 
@@ -15,7 +16,7 @@ export const SocketContextProvider = ({ children }) => {
 
     useEffect(() => {
         if(authUser) {
-            const socket = io("http://localhost:8080", {
+            const socket = io(SOCKET_URL, {
                 query: {
                     userId: authUser._id
                 }
